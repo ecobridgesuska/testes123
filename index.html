@@ -1,113 +1,57 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECOBRIDGE SUSKA - Gerakan Kampus Hijau & Berdampak</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- JAVASCRIPT & FIREBASE REALTIME SYNC -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    <style>
-        .glass-card-dark {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-        .glow-sky {
-            box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.3);
-        }
-    </style>
-</head>
-<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
 
-    <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="#" class="flex items-center gap-3">
-                <img src="eco.jpeg" alt="Logo" class="h-12 w-auto object-contain rounded-lg bg-white p-1 shadow-sm">
-                <div>
-                    <span class="text-lg font-bold tracking-tight text-slate-900 block leading-none">ECOBRIDGE</span>
-                    <span class="text-xs font-semibold text-sky-500">SUSKA RIAU</span>
-                </div>
-            </a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#tentang" class="text-sm font-medium text-slate-600 hover:text-sky-500">Tentang</a>
-                <a href="#transparansi" class="text-sm font-medium text-slate-600 hover:text-sky-500">Transparansi Dana</a>
-                <a href="login.html" class="text-sm font-medium text-slate-600 hover:text-sky-500 flex items-center gap-1.5">
-                    <i class="fa-solid fa-lock text-xs"></i><span>Admin Login</span>
-                </a>
-            </nav>
-        </div>
-    </header>
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
 
-    <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-                Ubah Sampah Organisasi Jadi <span class="text-sky-400">Akses Kebaikan</span>
-            </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto">
-                Inovasi pengelolaan sampah proker Ormawa UIN Suska Riau terintegrasi dengan BSI Maslahat.
-            </p>
-        </div>
-    </section>
+        // Table Filter Tabs Functionality
+        const filterBtns = document.querySelectorAll('.tab-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-sky-400', 'text-slate-900', 'font-bold');
+                    b.classList.add('text-slate-400', 'hover:text-white');
+                });
+                btn.classList.add('bg-sky-400', 'text-slate-900', 'font-bold');
+                btn.classList.remove('text-slate-400', 'hover:text-white');
 
-    <!-- TRANSPARANSI DANA SECTION -->
-    <section id="transparansi" class="py-20 bg-slate-950 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div class="text-center space-y-3">
-                <h2 class="text-3xl font-extrabold">Transparansi Dana Real-Time</h2>
-                <p class="text-slate-400 text-sm">Data diupdate langsung oleh Admin ECOBRIDGE SUSKA.</p>
-            </div>
+                const filterValue = btn.getAttribute('data-filter');
+                const tableRows = document.querySelectorAll('.table-row');
 
-            <!-- Stats -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Sampah Terkumpul</span>
-                    <div class="text-3xl font-extrabold text-sky-400 mt-1" id="publicTotalWeight">0 Kg</div>
-                </div>
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Pemasukan</span>
-                    <div class="text-3xl font-extrabold text-cyan-300 mt-1" id="publicTotalIncome">Rp 0</div>
-                </div>
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Donasi Disalurkan</span>
-                    <div class="text-3xl font-extrabold text-emerald-400 mt-1" id="publicTotalDonation">Rp 0</div>
-                </div>
-            </div>
+                tableRows.forEach(row => {
+                    const rowType = row.getAttribute('data-type');
+                    if (filterValue === 'all' || rowType === filterValue) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 
-            <!-- Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-300">
-                        <thead class="bg-slate-950 text-xs uppercase text-slate-400">
-                            <tr>
-                                <th class="py-3 px-4">Tanggal</th>
-                                <th class="py-3 px-4">Keterangan / Sumber</th>
-                                <th class="py-3 px-4">Tipe Transaksi</th>
-                                <th class="py-3 px-4 text-right">Jumlah (Rp)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-800" id="tableBody">
-                            <!-- Data Publik Realtime -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs">
-        <p>&copy; 2026 ECOBRIDGE SUSKA Riau.</p>
-    </footer>
-
-    <!-- FIREBASE REALTIME SCRIPT UNTUK INDEX -->
+    <!-- FIREBASE REALTIME MODULE UNTUK INDEX -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -115,7 +59,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyA6waiedwMizQhiZUEusFcMjXhSDbCHD_w",
             authDomain: "ecobridge-suska.firebaseapp.com",
-            databaseURL: "https://ecobridge-suska-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            databaseURL: "https://ecobridge-suska-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "ecobridge-suska",
             storageBucket: "ecobridge-suska.firebasestorage.app",
             messagingSenderId: "220748550670",
@@ -143,23 +87,32 @@
                 transactions.forEach(tx => {
                     const formattedAmount = new Intl.NumberFormat('id-ID').format(tx.amount || 0);
                     const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-800/40 transition-colors";
+                    row.className = "table-row hover:bg-slate-700/30 transition-colors";
+                    row.setAttribute('data-type', tx.type);
 
                     if (tx.type === 'pemasukan') {
                         totalWeight += Number(tx.weight || 0);
                         totalIncome += Number(tx.amount || 0);
                         row.innerHTML = `
-                            <td class="py-4 px-4 text-xs text-slate-400">${tx.date}</td>
+                            <td class="py-4 px-4 whitespace-nowrap text-xs text-slate-400">${tx.date}</td>
                             <td class="py-4 px-4 font-medium text-white">${tx.desc} (${tx.weight} Kg)</td>
-                            <td class="py-4 px-4"><span class="px-2.5 py-1 rounded-full text-xs bg-sky-500/10 text-sky-400">Pemasukan</span></td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                                    <i class="fa-solid fa-arrow-down-left text-[10px]"></i> Pemasukan
+                                </span>
+                            </td>
                             <td class="py-4 px-4 text-right font-bold text-sky-400">+ Rp ${formattedAmount}</td>
                         `;
                     } else {
                         totalDonation += Number(tx.amount || 0);
                         row.innerHTML = `
-                            <td class="py-4 px-4 text-xs text-slate-400">${tx.date}</td>
+                            <td class="py-4 px-4 whitespace-nowrap text-xs text-slate-400">${tx.date}</td>
                             <td class="py-4 px-4 font-medium text-white">${tx.desc}</td>
-                            <td class="py-4 px-4"><span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/10 text-emerald-400">Donasi</span></td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <i class="fa-solid fa-hand-holding-heart text-[10px]"></i> Donasi Disalurkan
+                                </span>
+                            </td>
                             <td class="py-4 px-4 text-right font-bold text-emerald-400">- Rp ${formattedAmount}</td>
                         `;
                     }
@@ -167,11 +120,9 @@
                 });
             }
 
-            // Update Statistik Publik
-            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerText = new Intl.NumberFormat('id-ID').format(totalWeight) + ' Kg';
+            // Update Kartu Statistik Publik secara Realtime
+            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerHTML = new Intl.NumberFormat('id-ID').format(totalWeight) + ' <span class="text-lg font-normal text-slate-400">Kg</span>';
             if(document.getElementById('publicTotalIncome')) document.getElementById('publicTotalIncome').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalIncome);
             if(document.getElementById('publicTotalDonation')) document.getElementById('publicTotalDonation').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalDonation);
         });
     </script>
-</body>
-</html>
