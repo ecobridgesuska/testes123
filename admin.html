@@ -1,215 +1,65 @@
-<!DOCTYPE html>
-<html lang="id" class="h-full bg-slate-900">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - ECOBRIDGE SUSKA</title>
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- JAVASCRIPT & FIREBASE REALTIME SYNC -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    <style>
-        .glass-card-dark {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-        .glow-sky {
-            box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.2);
-        }
-    </style>
-</head>
-<body class="h-full font-sans antialiased text-slate-100 flex flex-col justify-between bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900">
-
-    <!-- TOP NAVBAR -->
-    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow">
-                    <img src="eco.jpeg" alt="Logo" class="w-full h-full object-contain">
-                </div>
-                <div>
-                    <span class="text-base font-bold tracking-tight text-white block leading-none">ECOBRIDGE SUSKA</span>
-                    <span class="text-[11px] font-medium text-sky-400">Admin Control Panel</span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-2 transition-colors">
-					<i class="fa-solid fa-globe"></i>
-					<span>Lihat Web Publik</span>
-				</a>
-                <a href="login.html" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-semibold text-rose-400 flex items-center gap-2 transition-colors">
-					<i class="fa-solid fa-arrow-right-from-bracket"></i>
-					<span>Keluar</span>
-				</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8 flex-grow">
-        
-        <!-- Welcome Banner & Add Button -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-800/60 p-6 rounded-3xl border border-slate-700/80 backdrop-blur-md">
-            <div>
-                <h1 class="text-2xl font-extrabold text-white">Dashboard Pengelolaan Data</h1>
-                <p class="text-xs sm:text-sm text-slate-400 mt-1">Kelola data berat sampah, pemasukan, dan penyaluran donasi ke BSI Maslahat.</p>
-            </div>
-            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-sky-400 hover:bg-sky-300 text-slate-900 font-bold px-5 py-3 rounded-2xl text-sm shadow-lg shadow-sky-400/20 transition-all transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-plus text-base"></i>
-                <span>Tambah Transaksi Baru</span>
-            </button>
-        </div>
-
-        <!-- STATS CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
-                <span class="text-xs font-medium text-slate-400 block mb-1">Total Sampah Tercatat</span>
-                <div class="text-2xl font-extrabold text-sky-400" id="adminTotalWeight">0 Kg</div>
-                <span class="text-[11px] text-emerald-400 mt-2 block"><i class="fa-solid fa-arrow-trend-up"></i> Akumulasi berat sampah masuk</span>
-            </div>
-            <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
-                <span class="text-xs font-medium text-slate-400 block mb-1">Total Dana Pemasukan</span>
-                <div class="text-2xl font-extrabold text-cyan-300" id="adminTotalIncome">Rp 0</div>
-                <span class="text-[11px] text-slate-400 mt-2 block">Akumulasi kas penjualan sampah</span>
-            </div>
-            <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
-                <span class="text-xs font-medium text-slate-400 block mb-1">Total Donasi Disalurkan</span>
-                <div class="text-2xl font-extrabold text-emerald-400" id="adminTotalDonation">Rp 0</div>
-                <span class="text-[11px] text-emerald-400 mt-2 block"><i class="fa-solid fa-circle-check"></i> Mitra BSI Maslahat</span>
-            </div>
-        </div>
-
-        <!-- TABLE MANAGEMENT SECTION -->
-        <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md space-y-6">
-            <div>
-                <h2 class="text-lg font-bold text-white">Daftar Seluruh Transaksi</h2>
-                <p class="text-xs text-slate-400">Data berat sampah, pemasukan, dan donasi yang tercatat dalam sistem.</p>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-slate-300">
-                    <thead class="bg-slate-900/60 text-xs uppercase font-semibold text-slate-400 tracking-wider">
-                        <tr>
-                            <th class="py-3.5 px-4 rounded-l-lg">Tanggal</th>
-                            <th class="py-3.5 px-4">Keterangan / Sumber</th>
-                            <th class="py-3.5 px-4">Tipe Transaksi</th>
-                            <th class="py-3.5 px-4 text-right">Jumlah (Rp)</th>
-                            <th class="py-3.5 px-4 text-center rounded-r-lg">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-700/60" id="adminTableBody">
-                        <!-- Data dimuat real-time dari Firebase -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <!-- MODAL FORM TAMBAH TRANSAKSI -->
-    <div id="transactionModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 glow-sky">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-                <h3 class="text-lg font-bold text-white">Tambah Data Transaksi Baru</h3>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <form id="transactionForm" class="space-y-4">
-                <div class="space-y-1">
-                    <label class="block text-xs font-semibold text-slate-300 uppercase">Tanggal</label>
-                    <input type="date" id="txDate" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-400">
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block text-xs font-semibold text-slate-300 uppercase">Keterangan / Sumber</label>
-                    <input type="text" id="txDesc" placeholder="Contoh: HMPS Matematika - Botol Plastik" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-400">
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="block text-xs font-semibold text-slate-300 uppercase">Tipe Transaksi</label>
-                        <select id="txType" onchange="toggleWeightInput()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-400">
-                            <option value="pemasukan">Pemasukan (+)</option>
-                            <option value="donasi">Donasi Disalurkan (-)</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-1" id="weightContainer">
-                        <label class="block text-xs font-semibold text-slate-300 uppercase">Berat Sampah (Kg)</label>
-                        <input type="number" id="txWeight" placeholder="Contoh: 45" value="0" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-400">
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block text-xs font-semibold text-slate-300 uppercase">Jumlah Nominal (Rp)</label>
-                    <input type="number" id="txAmount" placeholder="Contoh: 270000" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-400">
-                </div>
-
-                <div class="pt-4 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition-colors">Batal</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold text-slate-900 bg-sky-400 hover:bg-sky-300 transition-all shadow-lg shadow-sky-400/20">Simpan ke Cloud</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        <p>&copy; 2026 ECOBRIDGE SUSKA Admin Panel. All rights reserved.</p>
-    </footer>
-
-    <!-- MODAL JS HELPER -->
-    <script>
-        function openModal() {
-            document.getElementById('transactionModal').classList.remove('hidden');
-        }
-        function closeModal() {
-            document.getElementById('transactionModal').classList.add('hidden');
-        }
-        function toggleWeightInput() {
-            const type = document.getElementById('txType').value;
-            const container = document.getElementById('weightContainer');
-            if (type === 'donasi') {
-                container.style.display = 'none';
-                document.getElementById('txWeight').value = 0;
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
             } else {
-                container.style.display = 'block';
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
             }
-        }
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Table Filter Tabs Functionality
+        const filterBtns = document.querySelectorAll('.tab-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-sky-400', 'text-slate-900', 'font-bold');
+                    b.classList.add('text-slate-400', 'hover:text-white');
+                });
+                btn.classList.add('bg-sky-400', 'text-slate-900', 'font-bold');
+                btn.classList.remove('text-slate-400', 'hover:text-white');
+
+                const filterValue = btn.getAttribute('data-filter');
+                const tableRows = document.querySelectorAll('.table-row');
+
+                tableRows.forEach(row => {
+                    const rowType = row.getAttribute('data-type');
+                    if (filterValue === 'all' || rowType === filterValue) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 
-    <!-- FIREBASE REALTIME SCRIPT UNTUK ADMIN -->
+    <!-- FIREBASE REALTIME MODULE UNTUK INDEX -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyA6waiedwMizQhiZUEusFcMjXhSDbCHD_w",
             authDomain: "ecobridge-suska.firebaseapp.com",
-            databaseURL: "https://ecobridge-suska-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            databaseURL: "https://ecobridge-suska-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "ecobridge-suska",
             storageBucket: "ecobridge-suska.firebasestorage.app",
             messagingSenderId: "220748550670",
@@ -221,10 +71,9 @@
         const db = getDatabase(app);
         const transactionsRef = ref(db, 'transactions');
 
-        // Baca dan Tampilkan Data Realtime di Tabel Admin
         onValue(transactionsRef, (snapshot) => {
             const data = snapshot.val();
-            const tableBody = document.getElementById('adminTableBody');
+            const tableBody = document.getElementById('tableBody');
             if (!tableBody) return;
 
             tableBody.innerHTML = '';
@@ -233,83 +82,47 @@
             let totalDonation = 0;
 
             if (data) {
-                Object.keys(data).forEach(id => {
-                    const tx = data[id];
+                const transactions = Object.keys(data).map(key => ({ id: key, ...data[key] })).reverse();
+
+                transactions.forEach(tx => {
                     const formattedAmount = new Intl.NumberFormat('id-ID').format(tx.amount || 0);
                     const row = document.createElement('tr');
-                    row.className = "border-b border-slate-800 hover:bg-slate-800/50 transition-colors";
+                    row.className = "table-row hover:bg-slate-700/30 transition-colors";
+                    row.setAttribute('data-type', tx.type);
 
                     if (tx.type === 'pemasukan') {
                         totalWeight += Number(tx.weight || 0);
                         totalIncome += Number(tx.amount || 0);
                         row.innerHTML = `
-                            <td class="py-3 px-4 text-xs text-slate-400">${tx.date}</td>
-                            <td class="py-3 px-4 font-medium text-white">${tx.desc} (${tx.weight} Kg)</td>
-                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-xs bg-sky-500/10 text-sky-400">Pemasukan</span></td>
-                            <td class="py-3 px-4 text-right font-bold text-sky-400">+ Rp ${formattedAmount}</td>
-                            <td class="py-3 px-4 text-center">
-                                <button data-id="${id}" class="btn-delete text-rose-400 hover:text-rose-300 p-2"><i class="fa-solid fa-trash"></i></button>
+                            <td class="py-4 px-4 whitespace-nowrap text-xs text-slate-400">${tx.date}</td>
+                            <td class="py-4 px-4 font-medium text-white">${tx.desc} (${tx.weight} Kg)</td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                                    <i class="fa-solid fa-arrow-down-left text-[10px]"></i> Pemasukan
+                                </span>
                             </td>
+                            <td class="py-4 px-4 text-right font-bold text-sky-400">+ Rp ${formattedAmount}</td>
                         `;
                     } else {
                         totalDonation += Number(tx.amount || 0);
                         row.innerHTML = `
-                            <td class="py-3 px-4 text-xs text-slate-400">${tx.date}</td>
-                            <td class="py-3 px-4 font-medium text-white">${tx.desc}</td>
-                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-xs bg-emerald-500/10 text-emerald-400">Donasi</span></td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">- Rp ${formattedAmount}</td>
-                            <td class="py-3 px-4 text-center">
-                                <button data-id="${id}" class="btn-delete text-rose-400 hover:text-rose-300 p-2"><i class="fa-solid fa-trash"></i></button>
+                            <td class="py-4 px-4 whitespace-nowrap text-xs text-slate-400">${tx.date}</td>
+                            <td class="py-4 px-4 font-medium text-white">${tx.desc}</td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <i class="fa-solid fa-hand-holding-heart text-[10px]"></i> Donasi Disalurkan
+                                </span>
                             </td>
+                            <td class="py-4 px-4 text-right font-bold text-emerald-400">- Rp ${formattedAmount}</td>
                         `;
                     }
                     tableBody.appendChild(row);
                 });
-
-                // Tombol Hapus Event Listener
-                document.querySelectorAll('.btn-delete').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const id = e.currentTarget.getAttribute('data-id');
-                        if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
-                            remove(ref(db, 'transactions/' + id));
-                        }
-                    });
-                });
             }
 
-            // Update Kartu Statistik Admin
-            if(document.getElementById('adminTotalWeight')) document.getElementById('adminTotalWeight').innerText = new Intl.NumberFormat('id-ID').format(totalWeight) + ' Kg';
-            if(document.getElementById('adminTotalIncome')) document.getElementById('adminTotalIncome').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalIncome);
-            if(document.getElementById('adminTotalDonation')) document.getElementById('adminTotalDonation').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalDonation);
+            // Update Kartu Statistik Publik secara Realtime
+            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerHTML = new Intl.NumberFormat('id-ID').format(totalWeight) + ' <span class="text-lg font-normal text-slate-400">Kg</span>';
+            if(document.getElementById('publicTotalIncome')) document.getElementById('publicTotalIncome').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalIncome);
+            if(document.getElementById('publicTotalDonation')) document.getElementById('publicTotalDonation').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalDonation);
         });
-
-        // Tambah Transaksi Form Submit
-        const form = document.getElementById('transactionForm');
-        if (form) {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-
-                const dateVal = document.getElementById('txDate').value;
-                const descVal = document.getElementById('txDesc').value;
-                const typeVal = document.getElementById('txType').value;
-                const weightVal = document.getElementById('txWeight').value || 0;
-                const amountVal = document.getElementById('txAmount').value;
-
-                push(transactionsRef, {
-                    date: dateVal,
-                    desc: descVal,
-                    type: typeVal,
-                    weight: Number(weightVal),
-                    amount: Number(amountVal)
-                }).then(() => {
-                    form.reset();
-                    closeModal();
-                    alert('Data transaksi berhasil disimpan secara realtime!');
-                }).catch(err => {
-                    alert('Gagal menyimpan: ' + err.message);
-                });
-            });
-        }
     </script>
-</body>
-</html>
