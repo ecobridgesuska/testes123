@@ -5,225 +5,319 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECOBRIDGE SUSKA - Gerakan Kampus Hijau & Berdampak</title>
     
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        skybrand: {
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        },
+                        darkslate: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Custom Style Helpers -->
     <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
         .glass-card-dark {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(56, 189, 248, 0.2);
         }
         .glow-sky {
             box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.3);
         }
+        .logo-watermark {
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0));
+        }
     </style>
 </head>
-<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-400 selection:text-slate-900">
 
-    <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="#" class="flex items-center gap-3">
-                <img src="eco.jpeg" alt="Logo" class="h-12 w-auto object-contain rounded-lg bg-white p-1 shadow-sm">
-                <div>
-                    <span class="text-lg font-bold tracking-tight text-slate-900 block leading-none">ECOBRIDGE</span>
-                    <span class="text-xs font-semibold text-sky-500">SUSKA RIAU</span>
-                </div>
-            </a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#tentang" class="text-sm font-medium text-slate-600 hover:text-sky-500">Tentang</a>
-                <a href="#transparansi" class="text-sm font-medium text-slate-600 hover:text-sky-500">Transparansi Dana</a>
-                <a href="login.html" class="text-sm font-medium text-slate-600 hover:text-sky-500 flex items-center gap-1.5">
-                    <i class="fa-solid fa-lock text-xs"></i><span>Admin Login</span>
+    <!-- HEADER / NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Official Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="eco.jpeg" alt="ECOBRIDGE SUSKA Logo" class="h-12 w-auto object-contain rounded-lg p-1 bg-white shadow-sm border border-slate-100 group-hover:scale-105 transition-transform duration-300">
+                    <div class="hidden sm:block">
+                        <span class="text-lg font-bold tracking-tight text-slate-900 block leading-none">ECOBRIDGE</span>
+                        <span class="text-xs font-semibold text-sky-500 tracking-wider">SUSKA RIAU</span>
+                    </div>
                 </a>
-            </nav>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#tentang" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">Tentang</a>
+                    <a href="#keunggulan" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">Keunggulan</a>
+                    <a href="#cara-kerja" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">Cara Kerja</a>
+                    <a href="#transparansi" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">Transparansi Dana</a>
+                    <a href="#kontak" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">Kontak</a>
+                    <a href="login.html" class="text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span>Admin Login</span>
+                    </a>
+                </nav>
+
+                <!-- Desktop CTA -->
+                <div class="hidden md:flex items-center">
+                    <a href="https://wa.me/061234444" target="_blank" rel="noopener noreferrer" 
+                       class="inline-flex items-center gap-2 bg-sky-400 hover:bg-sky-500 text-slate-900 font-semibold px-5 py-2.5 rounded-full text-sm shadow-md shadow-sky-400/20 hover:shadow-sky-400/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Daftar WhatsApp</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#tentang" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Tentang</a>
+            <a href="#keunggulan" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Keunggulan</a>
+            <a href="#cara-kerja" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Cara Kerja</a>
+            <a href="#transparansi" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Transparansi Dana</a>
+            <a href="#kontak" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Kontak</a>
+            <a href="login.html" class="mobile-nav-link block py-2 px-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">
+                <i class="fa-solid fa-lock mr-2"></i> Admin Login
+            </a>
+            <div class="pt-2">
+                <a href="https://wa.me/061234444" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-2 bg-sky-400 text-slate-900 font-semibold px-4 py-3 rounded-xl text-center shadow">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Daftar WhatsApp</span>
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-                Ubah Sampah Organisasi Jadi <span class="text-sky-400">Akses Kebaikan</span>
-            </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto">
-                Inovasi pengelolaan sampah proker Ormawa UIN Suska Riau terintegrasi dengan BSI Maslahat.
-            </p>
+    <!-- HERO SECTION WITH LOGO WATERMARK -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-white">
+        
+        <!-- Logo Background Watermark -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 overflow-hidden">
+            <img src="eco.jpeg" alt="Logo Background Watermark" class="w-[600px] max-w-none mix-blend-screen filter brightness-150 contrast-125 blur-[1px]">
+        </div>
+
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 -left-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-400/10 border border-sky-400/30 text-sky-400 text-sm font-medium backdrop-blur-md">
+                        <i class="fa-solid fa-seedling"></i>
+                        <span>🌿 Gerakan Kampus Hijau &amp; Berdampak</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                        Ubah Sampah Organisasi Jadi <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">Akses Kebaikan</span> Berkelanjutan
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                        Integrasikan aksi pemilahan sampah ke dalam proker organisasimu, salurkan ke bank sampah, dan ubah hasilnya menjadi donasi sosial bersama <strong>BSI Maslahat</strong>.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="https://wa.me/061234444" target="_blank" rel="noopener noreferrer" 
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-sky-400 hover:bg-sky-300 text-slate-900 font-bold px-8 py-4 rounded-xl shadow-lg shadow-sky-400/25 transition-all duration-300 transform hover:-translate-y-1">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>Daftar Sekarang (061234444)</span>
+                        </a>
+
+                        <a href="#transparansi" 
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-700 font-semibold px-6 py-4 rounded-xl transition-all duration-300">
+                            <i class="fa-solid fa-chart-line text-sky-400"></i>
+                            <span>Lihat Transparansi Dana</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Visual Card Column -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="glass-card-dark p-6 sm:p-8 rounded-3xl glow-sky relative z-10 space-y-6">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md">
+                                        <img src="eco.jpeg" alt="Logo Emblem" class="w-full h-full object-contain">
+                                    </div>
+                                    <div>
+                                        <h2 class="text-sm font-semibold text-white">Ekosistem Circular</h2>
+                                        <p class="text-xs text-sky-400 font-medium">ECOBRIDGE SUSKA</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium">Aktif</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                                    <span class="text-xs text-slate-400 block mb-1">Target Daur Ulang</span>
+                                    <span class="text-xl sm:text-2xl font-extrabold text-sky-400">2.5+ Ton</span>
+                                    <span class="text-[10px] text-slate-500 block mt-1">Kertas &amp; Plastik Kampus</span>
+                                </div>
+                                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                                    <span class="text-xs text-slate-400 block mb-1">Alokasi Donasi</span>
+                                    <span class="text-xl sm:text-2xl font-extrabold text-emerald-400">30%+</span>
+                                    <span class="text-[10px] text-slate-500 block mt-1">Ke BSI Maslahat</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50 flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-white/10 flex-shrink-0 flex items-center justify-center text-sky-400 text-xl">
+                                    <i class="fa-solid fa-handshake-angle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-semibold text-white">Penyaluran Resmi BSI Maslahat</h3>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">Membantu beasiswa, bantuan bencana, dan pemberdayaan masyarakat.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <!-- TRANSPARANSI DANA SECTION -->
-    <section id="transparansi" class="py-20 bg-slate-950 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div class="text-center space-y-3">
-                <h2 class="text-3xl font-extrabold">Transparansi Dana Real-Time</h2>
-                <p class="text-slate-400 text-sm">Data diupdate langsung oleh Admin ECOBRIDGE SUSKA.</p>
-            </div>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Sampah Terkumpul</span>
-                    <div class="text-3xl font-extrabold text-sky-400 mt-1" id="publicTotalWeight">0 Kg</div>
-                </div>
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Pemasukan</span>
-                    <div class="text-3xl font-extrabold text-cyan-300 mt-1" id="publicTotalIncome">Rp 0</div>
-                </div>
-                <div class="glass-card-dark p-6 rounded-2xl">
-                    <span class="text-xs text-slate-400">Total Donasi Disalurkan</span>
-                    <div class="text-3xl font-extrabold text-emerald-400 mt-1" id="publicTotalDonation">Rp 0</div>
+    <!-- TENTANG PROGRAM SECTION -->
+    <section id="tentang" class="py-20 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 text-sky-600 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Mengenal Program</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Wadah Kolaborasi Ormawa UIN Suska Riau Peduli Lingkungan &amp; Sosial
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        <strong>ECOBRIDGE SUSKA</strong> lahir sebagai inisiatif strategis untuk menjembatani kegiatan kemahasiswaan dengan pengelolaan sampah bernilai ekonomis.
+                    </p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+    <!-- TRANSPARANSI DANA REAL-TIME SECTION -->
+    <section id="transparansi" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-400/10 border border-sky-400/30 text-sky-400 text-xs font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Live Financial Dashboard</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Transparansi Dana Real-Time
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Data transaksi diinput langsung oleh Admin Terverifikasi ECOBRIDGE SUSKA.
+                </p>
+            </div>
+
+            <!-- Summary Widget Cards (Sinkron Otomatis) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+                <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs font-medium text-slate-400 block mb-1">Total Sampah Terkumpul</span>
+                    <div class="text-3xl font-extrabold text-sky-400" id="publicTotalWeight">0 Kg</div>
+                    <span class="text-[11px] text-emerald-400 mt-2 block"><i class="fa-solid fa-arrow-trend-up"></i> Real-time cloud sync</span>
+                </div>
+
+                <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs font-medium text-slate-400 block mb-1">Total Dana Pemasukan</span>
+                    <div class="text-3xl font-extrabold text-cyan-300" id="publicTotalIncome">Rp 0</div>
+                    <span class="text-[11px] text-slate-400 mt-2 block">Akumulasi penjualan sampah</span>
+                </div>
+
+                <div class="glass-card-dark p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs font-medium text-slate-400 block mb-1">Total Donasi Disalurkan</span>
+                    <div class="text-3xl font-extrabold text-emerald-400" id="publicTotalDonation">Rp 0</div>
+                    <span class="text-[11px] text-emerald-400 mt-2 block"><i class="fa-solid fa-circle-check"></i> Mitra BSI Maslahat</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Table Card -->
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md">
+                <div class="flex items-center justify-between mb-6 pb-6 border-b border-slate-700">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Riwayat Transaksi Publik</h3>
+                        <p class="text-xs text-slate-400">Data tersinkronisasi otomatis dari panel admin</p>
+                    </div>
+                </div>
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm text-slate-300">
-                        <thead class="bg-slate-950 text-xs uppercase text-slate-400">
+                        <thead class="bg-slate-900/60 text-xs uppercase font-semibold text-slate-400 tracking-wider">
                             <tr>
-                                <th class="py-3 px-4">Tanggal</th>
-                                <th class="py-3 px-4">Keterangan / Sumber</th>
-                                <th class="py-3 px-4">Tipe Transaksi</th>
-                                <th class="py-3 px-4 text-right">Jumlah (Rp)</th>
+                                <th class="py-3.5 px-4 rounded-l-lg">Tanggal</th>
+                                <th class="py-3.5 px-4">Keterangan / Sumber</th>
+                                <th class="py-3.5 px-4">Tipe Transaksi</th>
+                                <th class="py-3.5 px-4 text-right rounded-r-lg">Jumlah (Rp)</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-800" id="tableBody">
-                            <!-- Data Publik Realtime -->
+                        <tbody class="divide-y divide-slate-700/60" id="tableBody">
+                            <!-- Data dimuat secara otomatis dari Firebase Realtime Database -->
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs">
-        <p>&copy; 2026 ECOBRIDGE SUSKA Riau.</p>
+    <!-- FOOTER WITH LOGO -->
+    <footer id="kontak" class="bg-slate-950 text-slate-400 border-t border-slate-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+            <p>&copy; 2026 ECOBRIDGE SUSKA x UIN Suska Riau. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- FIREBASE REALTIME SCRIPT UNTUK INDEX -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyA6waiedwMizQhiZUEusFcMjXhSDbCHD_w",
-            authDomain: "ecobridge-suska.firebaseapp.com",
-            databaseURL: "https://ecobridge-suska-default-rtdb.asia-southeast1.firebasedatabase.app/",
-            projectId: "ecobridge-suska",
-            storageBucket: "ecobridge-suska.firebasestorage.app",
-            messagingSenderId: "220748550670",
-            appId: "1:220748550670:web:5ab37be742d23cc7b2e25f",
-            measurementId: "G-9CCEJGBMK6"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const transactionsRef = ref(db, 'transactions');
-
-        onValue(transactionsRef, (snapshot) => {
-            const data = snapshot.val();
-            const tableBody = document.getElementById('tableBody');
-            if (!tableBody) return;
-
-            tableBody.innerHTML = '';
-            let totalWeight = 0;
-            let totalIncome = 0;
-            let totalDonation = 0;
-
-            if (data) {
-                const transactions = Object.keys(data).map(key => ({ id: key, ...data[key] })).reverse();
-
-                transactions.forEach(tx => {
-                    const formattedAmount = new Intl.NumberFormat('id-ID').format(tx.amount || 0);
-                    const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-800/40 transition-colors";
-
-                    if (tx.type === 'pemasukan') {
-                        totalWeight += Number(tx.weight || 0);
-                        totalIncome += Number(tx.amount || 0);
-                        row.innerHTML = `
-                            <td class="py-4 px-4 text-xs text-slate-400">${tx.date}</td>
-                            <td class="py-4 px-4 font-medium text-white">${tx.desc} (${tx.weight} Kg)</td>
-                            <td class="py-4 px-4"><span class="px-2.5 py-1 rounded-full text-xs bg-sky-500/10 text-sky-400">Pemasukan</span></td>
-                            <td class="py-4 px-4 text-right font-bold text-sky-400">+ Rp ${formattedAmount}</td>
-                        `;
-                    } else {
-                        totalDonation += Number(tx.amount || 0);
-                        row.innerHTML = `
-                            <td class="py-4 px-4 text-xs text-slate-400">${tx.date}</td>
-                            <td class="py-4 px-4 font-medium text-white">${tx.desc}</td>
-                            <td class="py-4 px-4"><span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/10 text-emerald-400">Donasi</span></td>
-                            <td class="py-4 px-4 text-right font-bold text-emerald-400">- Rp ${formattedAmount}</td>
-                        `;
-                    }
-                    tableBody.appendChild(row);
-                });
-            }
-
-            // Update Statistik Publik
-            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerText = new Intl.NumberFormat('id-ID').format(totalWeight) + ' Kg';
-            if(document.getElementById('publicTotalIncome')) document.getElementById('publicTotalIncome').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalIncome);
-            if(document.getElementById('publicTotalDonation')) document.getElementById('publicTotalDonation').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalDonation);
-        });
-    </script>
-	<!-- JAVASCRIPT & FIREBASE REALTIME SYNC -->
+    <!-- JAVASCRIPT & FIREBASE REALTIME SYNC -->
     <script>
-        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuIcon = document.getElementById('menuIcon');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            } else {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-xmark');
-            }
-        });
-
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        });
-
-        // Table Filter Tabs Functionality
-        const filterBtns = document.querySelectorAll('.tab-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-sky-400', 'text-slate-900', 'font-bold');
-                    b.classList.add('text-slate-400', 'hover:text-white');
-                });
-                btn.classList.add('bg-sky-400', 'text-slate-900', 'font-bold');
-                btn.classList.remove('text-slate-400', 'hover:text-white');
-
-                const filterValue = btn.getAttribute('data-filter');
-                const tableRows = document.querySelectorAll('.table-row');
-
-                tableRows.forEach(row => {
-                    const rowType = row.getAttribute('data-type');
-                    if (filterValue === 'all' || rowType === filterValue) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-            });
-        });
+        }
     </script>
 
     <!-- FIREBASE REALTIME MODULE UNTUK INDEX -->
@@ -263,7 +357,6 @@
                     const formattedAmount = new Intl.NumberFormat('id-ID').format(tx.amount || 0);
                     const row = document.createElement('tr');
                     row.className = "table-row hover:bg-slate-700/30 transition-colors";
-                    row.setAttribute('data-type', tx.type);
 
                     if (tx.type === 'pemasukan') {
                         totalWeight += Number(tx.weight || 0);
@@ -296,7 +389,7 @@
             }
 
             // Update Kartu Statistik Publik secara Realtime
-            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerHTML = new Intl.NumberFormat('id-ID').format(totalWeight) + ' <span class="text-lg font-normal text-slate-400">Kg</span>';
+            if(document.getElementById('publicTotalWeight')) document.getElementById('publicTotalWeight').innerText = new Intl.NumberFormat('id-ID').format(totalWeight) + ' Kg';
             if(document.getElementById('publicTotalIncome')) document.getElementById('publicTotalIncome').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalIncome);
             if(document.getElementById('publicTotalDonation')) document.getElementById('publicTotalDonation').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalDonation);
         });
